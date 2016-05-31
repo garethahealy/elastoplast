@@ -1,0 +1,14 @@
+name: "Has started"
+type: frequency
+index: oselogs*
+num_events: 1
+timeframe:
+    hours: 24
+filter:
+- query:
+    query_string:
+      query: "elasticsearchLoad started"
+alert:
+- "email"
+email:
+- "hello@world.com"
