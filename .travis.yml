@@ -1,3 +1,9 @@
+sudo: required
+services:
+  - docker
+before_install:
+  - docker build --tag garethahealy/elastoplast-base:latest base/src/main/docker/
+  - docker build --tag garethahealy/elastoplast-rule1:latest rule1/src/main/docker/
 language: java
 install: mvn clean install -Dgpg.skip=true
 jdk:
