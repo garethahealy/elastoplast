@@ -1,4 +1,5 @@
-FROM registry.access.redhat.com/rhscl/python-27-rhel7
+#FROM registry.access.redhat.com/rhscl/python-27-rhel7
+FROM docker.io/centos/python-27-centos7
 
 USER root
 

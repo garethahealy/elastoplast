@@ -7,8 +7,6 @@ before_install:
 language: java
 install: mvn clean install -Dgpg.skip=true
 jdk:
-  - openjdk7
-  - oraclejdk7
   - oraclejdk8
 cache:
   directories:
