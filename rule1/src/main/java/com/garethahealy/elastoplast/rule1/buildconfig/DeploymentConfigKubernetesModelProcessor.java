@@ -120,6 +120,7 @@ public class DeploymentConfigKubernetesModelProcessor {
         return selectors;
     }
 
+    /**
     private Probe getProbe(String wget, Integer initialDelaySeconds, Integer timeoutSeconds) {
         List<String> commands = new ArrayList<String>();
         commands.add("/bin/bash");
@@ -136,6 +137,7 @@ public class DeploymentConfigKubernetesModelProcessor {
 
         return probe;
     }
+     **/
 
     private ResourceRequirements getResourceRequirements() {
         ResourceRequirements resourceRequirements = new ResourceRequirements();
