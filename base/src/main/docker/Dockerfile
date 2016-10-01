@@ -3,23 +3,32 @@ FROM docker.io/centos/python-27-centos7
 
 USER root
 
+# Install python dev tools
 RUN yum install -y gcc kernel-devel make python-devel python-setuptools
 
+# Create user
 RUN groupadd -r elastalert -g 1000 && \
     useradd -u 1000 -r -g elastalert -m -d /deployments -s /sbin/nologin -c "elastalert user" elastalert
 
+# Upgrade pip
+RUN cd /deployments \
+    && easy_install -U pip \
+    && easy_install -U setuptools \
+    && pip install --user --upgrade pip
+
+# Clone elastalert from source
 RUN cd /deployments && \
     git clone https://github.com/Yelp/elastalert.git --depth 1 --branch v0.0.81 --single-branch && \
     cd elastalert && \
     mkdir rules
 
-# Weird issue where the contents of this install script wouldnt work as being docker RUN commands
-COPY install.sh /deployments/elastalert/
-RUN chmod +x /deployments/elastalert/install.sh && \
-    /deployments/elastalert/install.sh && \
-    rm -f /deployments/elastalert/install.sh
+RUN chown -R elastalert:elastalert /deployments \
+    && chown -R elastalert:elastalert /opt/app-root/src/
 
-RUN chown -R elastalert:elastalert /deployments
-
-# switch to jboss
+# switch to elastalert
 USER 1000
+
+# Install
+RUN cd /deployments/elastalert \
+    && pip install --user -r requirements.txt \
+    && python setup.py install --user
