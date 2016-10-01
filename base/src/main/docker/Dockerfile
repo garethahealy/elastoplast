@@ -8,8 +8,7 @@ RUN yum install -y gcc kernel-devel make python-devel python-setuptools
 RUN groupadd -r elastalert -g 1000 && \
     useradd -u 1000 -r -g elastalert -m -d /deployments -s /sbin/nologin -c "elastalert user" elastalert
 
-RUN mkdir /deployments && \
-    cd /deployments && \
+RUN cd /deployments && \
     git clone https://github.com/Yelp/elastalert.git --depth 1 --branch v0.0.81 --single-branch && \
     cd elastalert && \
     mkdir rules
@@ -22,6 +21,5 @@ RUN chmod +x /deployments/elastalert/install.sh && \
 
 RUN chown -R elastalert:elastalert /deployments
 
+# switch to jboss
 USER 1000
-
-
