@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/garethahealy/elastoplast.svg?branch=master)](https://travis-ci.org/garethahealy/elastoplast)
+[![Release Version](https://img.shields.io/maven-central/v/com.garethahealy.elastoplast/elastoplast-parent.svg?maxAge=2592000)](https://mvnrepository.com/artifact/com.garethahealy.elastoplast/elastoplast-parent)
+[![License](https://img.shields.io/hexpm/l/plug.svg?maxAge=2592000)]()
 
 # elastoplast
 PoC to create a docker image for ElastAlert and to understand how it works.
