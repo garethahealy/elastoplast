@@ -1,5 +1,10 @@
 #FROM registry.access.redhat.com/rhscl/python-27-rhel7
-FROM docker.io/centos/python-27-centos7
+FROM docker.io/centos/python-27-centos7:latest
+
+LABEL Name="elastoplast-base (docker.io/centos/python-27-centos7:latest)" \
+    Vendor="com.garethahealy" \
+    Version="latest" \
+    License="Apache License, Version 2.0"
 
 USER root
 
