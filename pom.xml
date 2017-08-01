@@ -27,8 +27,6 @@
 
     <modules>
         <module>elastic-loader</module>
-        <module>base</module>
-        <module>rule1</module>
     </modules>
 
     <dependencyManagement>

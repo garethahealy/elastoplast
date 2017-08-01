@@ -22,10 +22,4 @@ logs/
 tmp/
 *.tmp
 
-# Vagrant
-.vagrant
-*.box
-*.vmdk
-*.ova
-
-base/src/main/docker/1_rhelsubs.sh
+**/1_rhelsubs.sh
