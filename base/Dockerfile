@@ -9,7 +9,8 @@ LABEL Name="elastoplast-base (docker.io/centos/python-27-centos7:latest)" \
 USER root
 
 # Install python dev tools
-RUN yum install -y gcc kernel-devel make python-devel python-setuptools
+RUN yum install -y gcc kernel-devel make python-devel python-setuptools && \
+    yum clean all
 
 # Create user
 RUN groupadd -r elastalert -g 1000 && \
