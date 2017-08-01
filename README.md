@@ -11,8 +11,8 @@ PoC to create a docker image for ElastAlert and to understand how it works.
 
 ## Building
 - mvn clean install
-- docker build --tag garethahealy/elastoplast-base base/src/main/docker/
-- docker build --tag garethahealy/elastoplast-rule1 rule1/src/main/docker/
+- docker build --tag garethahealy/elastoplast-base base
+- docker build --tag garethahealy/elastoplast-rule1 rule1
 
 ## Running
 elastic-load is a simple Apache Camel application which hosts an embedded ElasticSearch server. To run this application simply run:

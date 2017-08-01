@@ -1,4 +1,3 @@
-#FROM registry.access.redhat.com/rhscl/python-27-rhel7
 FROM docker.io/centos/python-27-centos7:latest
 
 LABEL Name="elastoplast-base (docker.io/centos/python-27-centos7:latest)" \
@@ -12,29 +11,25 @@ USER root
 RUN yum install -y gcc kernel-devel make python-devel python-setuptools && \
     yum clean all
 
-# Create user
-RUN groupadd -r elastalert -g 1000 && \
-    useradd -u 1000 -r -g elastalert -m -d /deployments -s /sbin/nologin -c "elastalert user" elastalert
+# Install python 2.7.13
+## NOTE: python included with base image fails for some reason, see error in comments: https://hub.docker.com/r/centos/python-27-centos7
+RUN cd /usr/src  && \
+    wget https://www.python.org/ftp/python/2.7.13/Python-2.7.13.tgz && \
+    tar xzf Python-2.7.13.tgz && \
+    cd Python-2.7.13 && \
+    ./configure && \
+    make altinstall && \
+    curl https://bootstrap.pypa.io/get-pip.py | /usr/local/bin/python2.7 -
 
-# Upgrade pip
-RUN cd /deployments \
-    && easy_install -U pip \
-    && easy_install -U setuptools \
-    && pip install --user --upgrade pip
+# Create virutal env for python
+RUN /usr/local/bin/pip install virtualenv && \
+    virtualenv /deployments/yelp
 
 # Clone elastalert from source
-RUN cd /deployments && \
-    git clone https://github.com/Yelp/elastalert.git --depth 1 --branch v0.0.81 --single-branch && \
-    cd elastalert && \
-    mkdir rules
-
-RUN chown -R elastalert:elastalert /deployments \
-    && chown -R elastalert:elastalert /opt/app-root/src/
-
-# switch to elastalert
-USER 1000
+RUN git clone https://github.com/Yelp/elastalert.git --depth 1 --branch v0.1.18 --single-branch /deployments/yelp/elastalert && \
+    mkdir /deployments/yelp/elastalert/rules
 
 # Install
-RUN cd /deployments/elastalert \
-    && pip install --user -r requirements.txt \
-    && python setup.py install --user
+RUN source /deployments/yelp/bin/activate && \
+    pip install -r /deployments/yelp/elastalert/requirements.txt && \
+    python2.7 /deployments/yelp/elastalert/setup.py install

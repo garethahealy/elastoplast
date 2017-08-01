@@ -8,11 +8,10 @@ LABEL Name="elastoplast-rule1 (garethahealy/elastoplast-base:latest)" \
 COPY configuration/config.yaml /deployments/elastalert/config.yaml
 COPY configuration/rule1.yaml /deployments/elastalert/rules/rule1.yaml
 COPY configuration/run.sh /deployments/elastalert/run.sh
+COPY fix-permissions /fix-permissions
 
 USER root
-RUN chmod +x /deployments/elastalert/run.sh && \
-    chown -R elastalert:elastalert /deployments
+RUN chmod +x /fix-permissions && \
+    /fix-permissions /deployments
 
-# elastalert
-USER 1000
 ENTRYPOINT ["/deployments/elastalert/run.sh"]
