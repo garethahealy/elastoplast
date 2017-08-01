@@ -17,6 +17,7 @@ install:
 - npm install -g dockerfile_lint
 before_script:
 - mvn dependency:resolve-plugins dependency:resolve -B
+- docker pull docker.io/centos/python-27-centos7:latest
 - dockerfile_lint -f base/Dockerfile -r .travis/dockerlint_rule.yaml
 - dockerfile_lint -f rule1/Dockerfile -r .travis/dockerlint_rule.yaml
 script:
